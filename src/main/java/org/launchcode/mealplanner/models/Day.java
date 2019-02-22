@@ -10,11 +10,11 @@ import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
-public class Day {
+public class Day extends AbstractEntity{
 
-    @Id
+/*    @Id
     @GeneratedValue
-    private int id;
+    private int id;*/
 
     @NotNull
     @Size(min = 3, max = 30, message = "Name must be between 3 and 30 characters")
@@ -47,9 +47,9 @@ public class Day {
 
     }
 
-    public int getId() {
+/*    public int getId() {
         return id;
-    }
+    }*/
 
     public String getName() {
         return name;

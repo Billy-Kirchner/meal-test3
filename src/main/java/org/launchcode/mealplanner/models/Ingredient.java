@@ -12,11 +12,11 @@ import java.util.List;
 import java.util.Map;
 
 @Entity
-public class Ingredient {
+public class Ingredient extends AbstractEntity{
 
-    @Id
+/*    @Id
     @GeneratedValue
-    private int id;
+    private int id;*/
 
     @NotNull
     @Size(min=3, max=30, message = "Name must be between 3 and 30 characters")
@@ -185,9 +185,9 @@ public class Ingredient {
         return netCarbohydrate;
     }
 
-    public int getId() {
+/*    public int getId() {
         return id;
-    }
+    }*/
 
     public void calculateTotalFat () {
         totalFat = saturatedFat+polyUnsaturatedFat+monoUnsaturatedFat+transFat;
