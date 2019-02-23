@@ -24,9 +24,9 @@ import java.util.ArrayList;
 
 @Controller
 @RequestMapping("ingredient")
-public class IngredientController {
+public class IngredientController extends AbstractController{
 
-    @Autowired
+/*    @Autowired
     private IngredientDao ingredientDao;
 
     @Autowired
@@ -36,7 +36,7 @@ public class IngredientController {
     private DayDao dayDao;
 
     @Autowired
-    ComponentDao componentDao;
+    ComponentDao componentDao;*/
 
     @RequestMapping(value = "")
     public String index( Model model) {

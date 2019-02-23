@@ -25,9 +25,9 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping("meal")
-public class MealController {
+public class MealController extends AbstractController{
 
-    @Autowired
+/*    @Autowired
     private MealDao mealDao;
 
     @Autowired
@@ -37,7 +37,7 @@ public class MealController {
     private ComponentDao componentDao;
 
     @Autowired
-    private DayDao dayDao;
+    private DayDao dayDao;*/
 
     @RequestMapping(value = "")
     public String index(Model model) {

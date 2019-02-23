@@ -21,13 +21,13 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping("day")
-public class DayController {
+public class DayController extends AbstractController{
 
-    @Autowired
+/*    @Autowired
     private DayDao dayDao;
 
     @Autowired
-    private MealDao mealDao;
+    private MealDao mealDao;*/
 
     @RequestMapping(value = "")
     public String index (Model model) {

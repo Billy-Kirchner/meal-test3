@@ -10,6 +10,7 @@ public class RegisterForm extends LoginForm {
     @Override
     public void setPassword(String password) {
         super.setPassword(password);
+        checkPasswordMatch();
     }
 
     public String getVerifyPassword() {
@@ -18,6 +19,7 @@ public class RegisterForm extends LoginForm {
 
     public void setVerifyPassword(String verifyPassword) {
         this.verifyPassword = verifyPassword;
+        checkPasswordMatch();
     }
 
     private void checkPasswordMatch() {

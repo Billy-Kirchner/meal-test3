@@ -29,8 +29,8 @@ public class UserController extends AbstractController{
     @RequestMapping(value = "register", method = RequestMethod.GET)
     public String displayRegisterForm (Model model) {
 
-        RegisterForm registerForm =  new RegisterForm();
-        model.addAttribute("form", registerForm);
+
+        model.addAttribute(new RegisterForm());
         model.addAttribute("title", "Create your account");
         return "user/register";
     }
@@ -45,7 +45,7 @@ public class UserController extends AbstractController{
         User existingUser = userDoa.findByUsername(form.getUsername());
 
         if (existingUser != null) {
-            errors.rejectValue("username", "username.alreadyexists", "A user with that username alreaady exists");
+            errors.rejectValue("username", "username.alreadyexists", "A user with that username already exists");
             return "user/register";
         }
 
@@ -59,8 +59,7 @@ public class UserController extends AbstractController{
     @RequestMapping(value = "login", method = RequestMethod.GET)
     public String displayLoginForm(Model model) {
 
-        LoginForm loginForm = new LoginForm();
-        model.addAttribute("form", loginForm);
+        model.addAttribute(new LoginForm());
         model.addAttribute("title", "Log In");
 
         return "user/login";
@@ -83,6 +82,7 @@ public class UserController extends AbstractController{
 
         if (!theUser.isMatchingPassword(password)) {
             errors.rejectValue("password", "password.invalid", "Invalid password");
+            return "user/login";
         }
 
         setUserInSession(request.getSession(), theUser);
