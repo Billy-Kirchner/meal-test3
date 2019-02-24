@@ -137,7 +137,10 @@
                 <div class="form-group">
                     <label th:for="mealId">Select Meal</label>
                     <select class="form-control" th:field="*{mealId}">
-                        <option th:each="meal : *{meals}" th:value="${meal.id}" th:text="${meal.name}"></option>
+                        <div th:each="meal : *{meals}">
+                            <option th:if="${meal.user.id} == ${user.id}" th:value="${meal.id}" th:text="${meal.name}"></option>
+                        </div>
+
                     </select>
                     <span th:errors="*{mealId}" class="error"></span>
                     <input type="hidden" name="dayId" th:value="*{day.id}" />

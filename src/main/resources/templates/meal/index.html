@@ -21,7 +21,10 @@
     <div class="col-sm-4">
         <p th:unless="${meals} and ${meals.size()}">Currently no meals created</p>
         <ul th:each="meal : ${meals}">
-            <a th:text="${meal.name}" th:href="@{'/meal/build/' + ${meal.id}}"></a>
+            <div th:if="${meal.user.id} == ${user.id}">
+                <a th:text="${meal.name}" th:href="@{'/meal/build/' + ${meal.id}}"></a>
+            </div>
+
         </ul>
     </div>
 </div>

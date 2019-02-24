@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @Controller
@@ -40,9 +41,10 @@ public class MealController extends AbstractController{
     private DayDao dayDao;*/
 
     @RequestMapping(value = "")
-    public String index(Model model) {
+    public String index(Model model, HttpServletRequest request) {
 
         model.addAttribute("meals", mealDao.findAll());
+        model.addAttribute("user", getUserFromSession(request.getSession()));
         model.addAttribute("title", "Meals");
 
         return "meal/index";
@@ -60,13 +62,14 @@ public class MealController extends AbstractController{
 
 
     @RequestMapping(value = "create", method = RequestMethod.POST)
-    public String processCreateMealForm(@ModelAttribute @Valid Meal newMeal, Errors errors, Model model) {
+    public String processCreateMealForm(@ModelAttribute @Valid Meal newMeal, Errors errors, Model model, HttpServletRequest request) {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Create New Meal");
             return "meal/create";
         }
 
+        newMeal.setUser(getUserFromSession(request.getSession()));
         mealDao.save(newMeal);
 
 
@@ -75,11 +78,12 @@ public class MealController extends AbstractController{
     }
 
     @RequestMapping(value = "build/{id}", method = RequestMethod.GET)
-    public String displayBuildMealForm(Model model, @PathVariable(value="id") int id) {
+    public String displayBuildMealForm(Model model, @PathVariable(value="id") int id, HttpServletRequest request) {
 
         BuildMealForm buildMealForm = new BuildMealForm(mealDao.findById(id).orElse(null), ingredientDao.findAll());
 
         model.addAttribute("form", buildMealForm);
+        model.addAttribute("user", getUserFromSession(request.getSession()));
         model.addAttribute("title", "Build Meal: " + mealDao.findById(id).orElse(null).getName());
 
         return "meal/build";

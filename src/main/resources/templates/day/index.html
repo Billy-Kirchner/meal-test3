@@ -20,7 +20,9 @@
     <div class="col-sm-4">
         <p th:unless="${days} and ${days.size()}">Currently no days planned</p>
         <ul th:each="day : ${days}">
-            <a th:text="${day.name}" th:href="@{'/day/build/' + ${day.id}}"></a>
+            <div th:if="${day.user.id} == ${user.id}">
+                <a th:text="${day.name}" th:href="@{'/day/build/' + ${day.id}}"></a>
+            </div>
         </ul>
     </div>
 </div>

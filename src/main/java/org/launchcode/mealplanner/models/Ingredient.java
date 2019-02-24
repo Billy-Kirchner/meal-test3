@@ -21,6 +21,12 @@ public class Ingredient extends AbstractEntity{
     @NotNull
     @Size(min=3, max=30, message = "Name must be between 3 and 30 characters")
     private String name;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+
     @NotNull
     private double calories;
     @NotNull
@@ -79,6 +85,14 @@ public class Ingredient extends AbstractEntity{
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public double getCalories() {

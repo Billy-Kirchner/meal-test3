@@ -23,6 +23,10 @@ public class Meal extends AbstractEntity{
     @OneToMany
     private List<Component> components = new ArrayList<>();
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
 /*    @ManyToMany
     private List<Ingredient> ingredients;*/
 
@@ -78,9 +82,13 @@ public class Meal extends AbstractEntity{
         this.components = components;
     }
 
-/*    public int getId() {
-        return id;
-    }*/
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public double getCalories() {
         return calories;

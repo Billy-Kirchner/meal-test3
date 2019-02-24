@@ -1,10 +1,7 @@
 package org.launchcode.mealplanner.controllers;
 
 
-import org.launchcode.mealplanner.models.Component;
-import org.launchcode.mealplanner.models.Day;
-import org.launchcode.mealplanner.models.Ingredient;
-import org.launchcode.mealplanner.models.Meal;
+import org.launchcode.mealplanner.models.*;
 import org.launchcode.mealplanner.models.data.ComponentDao;
 import org.launchcode.mealplanner.models.data.DayDao;
 import org.launchcode.mealplanner.models.data.IngredientDao;
@@ -18,6 +15,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.persistence.ManyToOne;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.ArrayList;
 
@@ -39,8 +38,9 @@ public class IngredientController extends AbstractController{
     ComponentDao componentDao;*/
 
     @RequestMapping(value = "")
-    public String index( Model model) {
+    public String index( Model model, HttpServletRequest request) {
 
+        model.addAttribute("user", getUserFromSession(request.getSession()));
         model.addAttribute("ingredients", ingredientDao.findAll());
         model.addAttribute("title", "Available Ingredients");
 
@@ -56,7 +56,7 @@ public class IngredientController extends AbstractController{
     }
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public String processAddIngredientForm(@ModelAttribute @Valid Ingredient newIngredient, Errors errors, Model model) {
+    public String processAddIngredientForm(@ModelAttribute @Valid Ingredient newIngredient, Errors errors, HttpServletRequest request, Model model) {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add New Ingredient");
@@ -64,7 +64,7 @@ public class IngredientController extends AbstractController{
             return "ingredient/add";
         }
 
-
+        newIngredient.setUser(getUserFromSession(request.getSession()));
         newIngredient.calculateTotalFat();
         newIngredient.calculateNetCarbohydrate();
         ingredientDao.save(newIngredient);

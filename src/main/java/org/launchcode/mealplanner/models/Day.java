@@ -1,10 +1,7 @@
 package org.launchcode.mealplanner.models;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
@@ -23,6 +20,9 @@ public class Day extends AbstractEntity{
     @ManyToMany
     private List<Meal> meals;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     private double calories;
     private double saturatedFat;
@@ -65,6 +65,14 @@ public class Day extends AbstractEntity{
 
     public void setMeals(List<Meal> meals) {
         this.meals = meals;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public double getCalories() {
